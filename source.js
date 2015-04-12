@@ -5,7 +5,6 @@ var posArray = [];
 var velArray = [];
 var timer;
 var moving = 0;
-var speed = 0;
 init();
 
 function init(){
@@ -37,6 +36,7 @@ function myTimer() {
 	var sliderPos = parseInt(document.getElementById('sliderOutput3').innerHTML);
 	$('#sliderOutput3').text(parseInt(document.getElementById('sliderOutput3').innerHTML)+moving);
 	//Drawing position
+<<<<<<< HEAD
 
 	if(Math.round(prePosYVal) > sliderPos){
 		drawPos(sliderPos, speed);
@@ -48,6 +48,9 @@ function myTimer() {
 		drawPos(sliderPos, 0);
 		speed = 0;
 	}
+=======
+	drawPos(sliderPos);
+>>>>>>> parent of ebd8186... UGG
 	timeCounter+=1;
 	if(timeCounter>1000){
 		window.clearInterval(timer);
@@ -55,25 +58,19 @@ function myTimer() {
 	}
 }
 
-function drawPos(sliderPos, speed){
+function drawPos(sliderPos){
 	var contex = canvas.getContext('2d');
 	contex.beginPath();
 	contex.moveTo(prePosXVal, prePosYVal);
-	prePosYVal = prePosYVal + speed;
-	contex.lineTo(timeCounter,prePosYVal);
+	contex.lineTo(timeCounter,-sliderPos*50+250);
 	contex.stroke();
-	prePosXVal = timeCounter;
+	if(posArray[prePosXVal] == null){
+		posArray[prePosXVal] = prePosYVal;
+	}
+	posArray[prePosXVal+1] = (-sliderPos*50)+250;
 
-	// contex.moveTo(prePosXVal, prePosYVal);
-	// contex.lineTo(timeCounter,-sliderPos*50+250);
-	// contex.stroke();
-	// if(posArray[prePosXVal] == null){
-	// 	posArray[prePosXVal] = prePosYVal;
-	// }
-	// posArray[prePosXVal+1] = (-sliderPos*50)+250;
-	//
-	// prePosXVal=timeCounter;
-	// prePosYVal=-sliderPos*50+250;
+	prePosXVal=timeCounter;
+	prePosYVal=-sliderPos*50+250;
 }
 
 function drawVel(){
