@@ -15,7 +15,7 @@ function init(){
 	context.lineTo(canvas.width, canvas.height/2);
 	context.stroke();
 	prePosXVal = 0;
-	prePosYVal = (parseInt(document.getElementById('sliderOutput3').innerHTML))*50+250;
+	prePosYVal = (parseInt(document.getElementById('sliderOutput3').innerHTML));
 	document.addEventListener('keydown', function(event) {
 	    if(event.keyCode == 37 || event.keyCode == 40) {
 			moving = -1;
@@ -34,16 +34,16 @@ function toggleTimer(){
 }
 
 function myTimer() {
-	var sliderPos = parseInt(document.getElementById('sliderOutput3').innerHTML)/50;
+	var sliderPos = parseInt(document.getElementById('sliderOutput3').innerHTML);
 	$('#sliderOutput3').text(parseInt(document.getElementById('sliderOutput3').innerHTML)+moving);
 	//Drawing position
 
-	if(Math.round(prePosYVal) > sliderPos*50+250){
+	if(Math.round(prePosYVal) > sliderPos){
 		drawPos(sliderPos, speed);
-		speed-=0.1;
-	} else if(Math.round(prePosYVal) < sliderPos*50+250){
-		drawPos(sliderPos, speed);
-		speed+=0.1;
+		speed+=0.01;
+	} else if(Math.round(prePosYVal) < sliderPos){
+		drawPos(sliderPos, -speed);
+		speed+=0.01;
 	} else {
 		drawPos(sliderPos, 0);
 		speed = 0;
