@@ -1,10 +1,10 @@
 var canvas = document.getElementById('graphCanvas');
 var timeCounter = 0;
-var prePosYVal = 0;
+var prePosYVal;
 var posArray = [];
 var velArray = [];
 var timer;
-var moving;
+var moving = 0;
 init();
 
 function init(){
@@ -49,7 +49,6 @@ function drawPos(graphPosition, speed){
 	context.beginPath();
 	context.moveTo(timeCounter-1, prePosYVal);
 	context.lineTo(timeCounter, graphPosition);
-	console.log(timeCounter + ", " + graphPosition);
 	context.stroke();
 	if(posArray[timeCounter-1] === null){
 		posArray[timeCounter-1] = prePosYVal;
