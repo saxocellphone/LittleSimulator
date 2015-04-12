@@ -5,6 +5,7 @@ var posArray = [];
 var velArray = [];
 var timer;
 var moving = 0;
+var speed = 0;
 init();
 
 function init(){
@@ -36,7 +37,17 @@ function myTimer() {
 	var sliderPos = parseInt(document.getElementById('sliderOutput3').innerHTML)/50;
 	$('#sliderOutput3').text(parseInt(document.getElementById('sliderOutput3').innerHTML)+moving);
 	//Drawing position
-	drawPos(sliderPos);
+
+	if(Math.round(prePosYVal) > sliderPos*50+250){
+		drawPos(sliderPos, speed);
+		speed-=0.1;
+	} else if(Math.round(prePosYVal) < sliderPos*50+250){
+		drawPos(sliderPos, speed);
+		speed+=0.1;
+	} else {
+		drawPos(sliderPos, 0);
+		speed = 0;
+	}
 	timeCounter+=1;
 	if(timeCounter>1000){
 		window.clearInterval(timer);
@@ -44,19 +55,25 @@ function myTimer() {
 	}
 }
 
-function drawPos(sliderPos){
+function drawPos(sliderPos, speed){
 	var contex = canvas.getContext('2d');
 	contex.beginPath();
 	contex.moveTo(prePosXVal, prePosYVal);
-	contex.lineTo(timeCounter,-sliderPos*50+250);
+	prePosYVal = prePosYVal + speed;
+	contex.lineTo(timeCounter,prePosYVal);
 	contex.stroke();
-	if(posArray[prePosXVal] == null){
-		posArray[prePosXVal] = prePosYVal;
-	}
-	posArray[prePosXVal+1] = (-sliderPos*50)+250;
+	prePosXVal = timeCounter;
 
-	prePosXVal=timeCounter;
-	prePosYVal=-sliderPos*50+250;
+	// contex.moveTo(prePosXVal, prePosYVal);
+	// contex.lineTo(timeCounter,-sliderPos*50+250);
+	// contex.stroke();
+	// if(posArray[prePosXVal] == null){
+	// 	posArray[prePosXVal] = prePosYVal;
+	// }
+	// posArray[prePosXVal+1] = (-sliderPos*50)+250;
+	//
+	// prePosXVal=timeCounter;
+	// prePosYVal=-sliderPos*50+250;
 }
 
 function drawVel(){
