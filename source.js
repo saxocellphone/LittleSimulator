@@ -7,6 +7,7 @@ var timer;
 var moving = 0;
 var speed = 0;
 var acc = 0.2;
+var sliderPosition = 0;
 init();
 
 function init(){
@@ -48,8 +49,8 @@ function toggleTimer(){  //Called from HTML
 
 function myTimer() {
 	moving += speed;
-	$('#slider').text(parseFloat(document.getElementById('slider').innerHTML)+moving);  //Update the slider's text
-	var sliderPosition = parseFloat(document.getElementById('slider').innerHTML);
+	$('#slider').text(parseInt(document.getElementById('slider').innerHTML)+Math.round(moving));  //Update the slider's text
+	sliderPosition += moving;
 	//Drawing position
 	drawPos(-sliderPosition+250);  //Invert the position so that it displays properly then add 250 because that's the center of the graph
 	timeCounter+=1;
@@ -78,7 +79,6 @@ function drawVel(){
 		velArray[i] = (posArray[i+1]-posArray[i])*50+250;
 	}
 	for(var j = 0; j < velArray.length; j+=1){
-		console.log(velArray[j]);
 		draw(contextVel, j, velArray[j], j+1, velArray[j+1]);
 	}
 
