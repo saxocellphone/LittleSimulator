@@ -1,10 +1,12 @@
 var canvas = document.getElementById('graphCanvas');
 var timeCounter = 0;
-var prePosYVal;
+var prePosXVal, prePosYVal, preVelXVal, preVelYVal;
 var posArray = [];
 var velArray = [];
 var timer;
 var moving = 0;
+var speed = 0;
+var acc = 0.2;
 init();
 
 function init(){
@@ -13,74 +15,68 @@ function init(){
 	context.moveTo(0,canvas.height/2);
 	context.lineTo(canvas.width, canvas.height/2);
 	context.stroke();
-	prePosYVal = (parseInt(document.getElementById('slider').innerHTML))+250;
+	prePosXVal = 0;
+	prePosYVal = parseInt(document.getElementById('sliderOutput3').innerHTML)+250;
 	document.addEventListener('keydown', function(event) {
-	    if(event.keyCode == 37 || event.keyCode == 40) {  //Left arrow, down arrow
-			moving = -1;
+	    if(event.keyCode == 37 || event.keyCode == 40) {
+			speed=0;
+			speed -= acc;
 	    }
-	    else if(event.keyCode == 39 || event.keyCode == 38) {  //Right arrow, up arrow
-	    	moving = 1;
+	    else if(event.keyCode == 39 || event.keyCode == 38) {
+			speed=0;
+			speed += acc;
 		}
 	});
-
 	document.addEventListener('keyup', function(event){
-		moving = 0;
+		speed = 0;
 	});
 }
 
-function toggleTimer(){  //Called from HTML
-	timer = setInterval(myTimer, 10);
+function toggleTimer(){
+	timer = setInterval(function(){myTimer()}, 20);
 }
 
-function myTimer(){
-	var sliderPosition = parseInt(document.getElementById('slider').innerHTML);
-	$('#slider').text(parseInt(document.getElementById('slider').innerHTML)+moving);
+function myTimer() {
+	moving += speed;
+	$('#sliderOutput3').text(parseInt(document.getElementById('sliderOutput3').innerHTML)+moving);
+	var sliderPos = parseInt(document.getElementById('sliderOutput3').innerHTML)/50;
 	//Drawing position
-	drawPos(-sliderPosition+250, 1);  //Invert the position so that it displays properly then add 250 because that's the center of the graph
+	drawPos(sliderPos);
 	timeCounter+=1;
 	if(timeCounter>1000){
-		window.clearInterval(timer);
 		drawVel();
+		window.clearInterval(timer);
 	}
 }
 
-function drawPos(graphPosition, speed){
-	var context = canvas.getContext('2d');
-	context.beginPath();
-	context.moveTo(timeCounter-1, prePosYVal);
-	context.lineTo(timeCounter, graphPosition);
-	context.stroke();
-	if(posArray[timeCounter-1] === null){
-		posArray[timeCounter-1] = prePosYVal;
+function drawPos(sliderPos){
+	var contex = canvas.getContext('2d');
+	contex.beginPath();
+	draw(contex,prePosXVal,prePosYVal,timeCounter,-sliderPos*50+250);
+	if(posArray[prePosXVal] == null){
+		posArray[prePosXVal] = prePosYVal;
 	}
-	posArray[timeCounter] = graphPosition;
-
-	prePosYVal=graphPosition;
+	posArray[prePosXVal+1] = (-sliderPos*50)+250;
+	console.log(speed);
+	prePosXVal=timeCounter;
+	prePosYVal=-sliderPos*50+250;
 }
 
 function drawVel(){
-	var contextVel = canvas.getContext('2d');
-	velArray[0]=0;
+	var contexVel = canvas.getContext('2d');
+	contexVel.beginPath();
+	velArray[0]=250;
 	for(var i = 1; i < posArray.length; i++){
-		velArray[i] = (posArray[i+1]-posArray[i]);
+		velArray[i] = (posArray[i+1]-posArray[i])*50+250;
+	}
+	for(var j = 0; j < velArray.length; j+=1){
+		draw(contexVel, j, velArray[j], j+10, velArray[j+10]);
 	}
 
-	contextVel.beginPath();
-	for(var i = 0; i < velArray.length; i++){
-		if(velArray[i] == 250){
-			for(var j = i; j < 10; j++){
-				if(velArray[j] != 250){
-					velArray[j] = velArray[j-1];
-					break;
-				}
-			}
-		}
-		draw(contextVel, i, velArray[i]*50+250, i+1, velArray[i+1]*50+250);
-	}
 }
 
-function draw(context, begX, begY, endX, endY){
-	context.moveTo(begX, begY);
-	context.lineTo(endX, endY);
-	context.stroke();
+function draw(contex, begX, begY, endX, endY){
+	contex.moveTo(begX, begY);
+	contex.lineTo(endX, endY);
+	contex.stroke();
 }
