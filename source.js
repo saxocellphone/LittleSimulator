@@ -60,7 +60,7 @@ function drawPos(graphPosition, speed){
 
 function drawVel(){
 	var contextVel = canvas.getContext('2d');
-	velArray[0]=250;
+	velArray[0]=0;
 	for(var i = 1; i < posArray.length; i++){
 		velArray[i] = (posArray[i+1]-posArray[i]);
 	}
@@ -75,7 +75,7 @@ function drawVel(){
 				}
 			}
 		}
-		draw(contextVel, i, velArray[i], i+1, velArray[i+1]);
+		draw(contextVel, i, velArray[i]*50+250, i+1, velArray[i+1]*50+250);
 	}
 }
 
