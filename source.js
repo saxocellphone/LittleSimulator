@@ -1,5 +1,5 @@
 var canvas = document.getElementById('graphCanvas');
-var timeCounter = 0;
+var timeCounter;
 var prePosYVal;
 var posArray = [];
 var velArray = [];
@@ -10,34 +10,45 @@ var acc = 0.2;
 init();
 
 function init(){
-	var context = canvas.getContext('2d');
-	context.beginPath();
-	context.moveTo(0,canvas.height/2);
-	context.lineTo(canvas.width, canvas.height/2);
-	context.stroke();
-	prePosYVal = parseInt(document.getElementById('slider').innerHTML)+250;
+	createCanvas();
 	document.addEventListener('keydown', function(event) {
 	    if(event.keyCode == 37 || event.keyCode == 40) {  //Left arrow, down arrow
+			event.preventDefault();
 			speed=0;
 			speed -= acc;
 	    }
 	    else if(event.keyCode == 39 || event.keyCode == 38) {  //Right arrow, up arrow
+			event.preventDefault();
 			speed=0;
 			speed += acc;
 		}
 	});
+
 	document.addEventListener('keyup', function(event){
 		speed = 0;
 	});
 }
 
+function createCanvas(){
+	var context = canvas.getContext('2d');
+	context.clearRect (0, 0, canvas.width, canvas.height);
+	context.beginPath();
+	context.moveTo(0, canvas.height/2);
+	context.lineTo(canvas.width, canvas.height/2);
+	context.stroke();
+}
+
 function toggleTimer(){  //Called from HTML
+	timeCounter = 0;
+	prePosYVal = 250;
+	$('#slider').text(0);
+	createCanvas();
 	timer = setInterval(myTimer, 20);
 }
 
 function myTimer() {
 	moving += speed;
-	$('#slider').text(parseInt(document.getElementById('slider').innerHTML)+moving);
+	$('#slider').text(parseInt(document.getElementById('slider').innerHTML)+moving);  //Update the slider's text
 	var sliderPosition = parseInt(document.getElementById('slider').innerHTML);
 	//Drawing position
 	drawPos(-sliderPosition+250);  //Invert the position so that it displays properly then add 250 because that's the center of the graph
@@ -56,7 +67,6 @@ function drawPos(graphPosition){
 		posArray[timeCounter-1] = prePosYVal;
 	}
 	posArray[timeCounter] = graphPosition;
-	console.log(speed);
 	prePosYVal=graphPosition;
 }
 
