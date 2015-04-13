@@ -42,7 +42,7 @@ function myTimer() {
 	//Drawing position
 	drawPos(-sliderPosition+250);  //Invert the position so that it displays properly then add 250 because that's the center of the graph
 	timeCounter+=1;
-	if(timeCounter>1000){
+	if(timeCounter>200){
 		drawVel();
 		window.clearInterval(timer);
 	}
@@ -65,7 +65,7 @@ function drawVel(){
 	contextVel.beginPath();
 	velArray[0]=250;
 	for(var i = 1; i < posArray.length; i++){
-		velArray[i] = -(posArray[i+1]-posArray[i])*50+250;
+		velArray[i] = (posArray[i+1]-posArray[i])*50+250;
 	}
 	for(var j = 0; j < velArray.length; j+=1){
 		draw(contextVel, j, velArray[j], j+1, velArray[j+1]);
