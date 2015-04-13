@@ -42,7 +42,7 @@ function myTimer() {
 	//Drawing position
 	drawPos(-sliderPosition+250);  //Invert the position so that it displays properly then add 250 because that's the center of the graph
 	timeCounter+=1;
-	if(timeCounter>200){
+	if(timeCounter>1000){
 		drawVel();
 		window.clearInterval(timer);
 	}
