@@ -68,7 +68,7 @@ function drawVel(){
 		velArray[i] = -(posArray[i+1]-posArray[i])*50+250;
 	}
 	for(var j = 0; j < velArray.length; j+=1){
-		draw(contextVel, j, velArray[j], j+10, velArray[j+10]);
+		draw(contextVel, j, velArray[j], j+1, velArray[j+1]);
 	}
 
 }
