@@ -3,6 +3,7 @@ var timeCounter;
 var prePosYVal;
 var posArray = [];
 var velArray = [];
+var accArray = [];
 var timer;
 var moving = 0;
 var speed = 0;
@@ -59,6 +60,7 @@ function myTimer() {
 	timeCounter+=1;
 	if(timeCounter>1000){
 		drawVel();
+		drawAcc();
 		window.clearInterval(timer);
 	}
 }
@@ -86,6 +88,20 @@ function drawVel(){
 
 	for(var j = 0; j < velArray.length+3; j+=4){
 		draw(contextVel, j, velArray[j], j+4, velArray[j+4]);
+	}
+}
+
+function drawAcc(){
+	var contextAcc = canvas.getContext('2d');
+	contextAcc.strokeStyle="#ff0000";
+	contextAcc.beginPath();
+	accArray[0]=250;
+	for(var i = 0; i < velArray.length + 3; i += 4){
+		accArray[i] = (velArray[i+4]-velArray[i])+250;
+	}
+
+	for(var j = 0; j < accArray.length+3; j+=4){
+		draw(contextAcc, j, accArray[j], j+4, accArray[j+4]);
 	}
 }
 
