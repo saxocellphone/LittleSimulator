@@ -8,7 +8,6 @@ var moving = 0;
 var speed = 0;
 var acc = 0.2;
 var sliderPosition = 0;
-var bool;
 init();
 
 function init(){
@@ -38,32 +37,25 @@ function createCanvas(){
 	context.moveTo(0, canvas.height/2);
 	context.lineTo(canvas.width, canvas.height/2);
 	context.stroke();
-
 }
 
 function toggleTimer(){  //Called from HTML
 	timeCounter = 0;
 	prePosYVal = 250;
 	$('#slider').text(0);
+	sliderPosition = 0;
+	speed = 0;
+	moving = 0;
 	createCanvas();
-	if(document.getElementById('sliderCheckbox').checked){
-		bool = true;
-	} else {
-		bool = false;
-	}
 	timer = setInterval(myTimer, 20);
 }
 
 function myTimer() {
 	moving += speed;
 	$('#slider').text(parseInt(document.getElementById('slider').innerHTML)+Math.round(moving));  //Update the slider's text
-	if(bool){
-		sliderPosition == parseInt(document.getElementById('slider').innerHTML);
-	} else {
-		sliderPosition += moving;
-	}
+
 	//Drawing position
-	drawPos(-sliderPosition+250);  //Invert the position so that it displays properly then add 250 because that's the center of the graph
+	drawPos(-(parseFloat(document.getElementById('slider').innerHTML)+moving)+250);  //Invert the position so that it displays properly then add 250 because that's the center of the graph
 	timeCounter+=1;
 	if(timeCounter>1000){
 		drawVel();
@@ -73,6 +65,7 @@ function myTimer() {
 
 function drawPos(graphPosition){
 	var context = canvas.getContext('2d');
+	context.strokeStyle="#000000";
 	context.beginPath();
 	draw(context, timeCounter-1, prePosYVal, timeCounter, graphPosition);
 	if(posArray[timeCounter-1] === null){
@@ -84,15 +77,16 @@ function drawPos(graphPosition){
 
 function drawVel(){
 	var contextVel = canvas.getContext('2d');
+	contextVel.strokeStyle="#FF6600";
 	contextVel.beginPath();
 	velArray[0]=250;
-	for(var i = 1; i < posArray.length; i++){
-		velArray[i] = (posArray[i+1]-posArray[i])*50+250;
-	}
-	for(var j = 0; j < velArray.length; j+=1){
-		draw(contextVel, j, velArray[j], j+1, velArray[j+1]);
+	for(var i = 0; i < posArray.length+3; i+=4){
+		velArray[i] = (posArray[i+4]-posArray[i])+250;
 	}
 
+	for(var j = 0; j < velArray.length+3; j+=4){
+		draw(contextVel, j, velArray[j], j+4, velArray[j+4]);
+	}
 }
 
 function draw(context, begX, begY, endX, endY){
