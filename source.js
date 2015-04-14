@@ -54,6 +54,13 @@ function myTimer() {
 	moving += speed;
 	$('#slider').text(parseInt(document.getElementById('slider').innerHTML)+Math.round(moving));  //Update the slider's text
 
+	if(bool){
+		sliderPosition == parseInt(document.getElementById('slider').innerHTML);
+	} else {
+		sliderPosition += moving;
+	}
+
+
 	//Drawing position
 	drawPos(-(parseFloat(document.getElementById('slider').innerHTML)+moving)+250);  //Invert the position so that it displays properly then add 250 because that's the center of the graph
 	timeCounter+=1;
