@@ -39,7 +39,8 @@ function init(){
 
 function createCanvas(){
 	var context = canvas.getContext('2d');
-	context.clearRect (0, 0, canvas.width, canvas.height);
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	context.strokeStyle = "#000000";
 	context.beginPath();
 	context.moveTo(0, canvas.height/2);
 	context.lineTo(canvas.width, canvas.height/2);
@@ -71,7 +72,7 @@ function toggleTimer(){
 	}
 }
 
-function updateSliderPosition() {
+function updateSliderPosition(){
 	moving += speed;
 	$('#slider').text(parseInt(document.getElementById('slider').innerHTML)+Math.round(moving));  //Update the slider's text
 
