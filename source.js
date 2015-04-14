@@ -97,8 +97,17 @@ function updateSliderPosition(){
 	moving += speed;
 	$('#slider').text(parseInt(document.getElementById('slider').innerHTML)+Math.round(moving));  //Update the slider's text
 
-	//Drawing position
-	drawPos(-(parseFloat(document.getElementById('slider').innerHTML)+moving)+250);  //Invert the position so that it displays properly then add 250 because that's the center of the graph
+	var position = -(parseFloat(document.getElementById('slider').innerHTML)+moving)+250;  //Invert the position so that it displays properly then add 250 because that's the center of the graph
+	if(position < 0){
+		position = 0;
+		speed = 0;
+	}
+	else if(position > 500){
+		position = 500;
+		speed = 0;
+	}
+
+	drawPos(position);
 	timeCounter++;
 	if(timeCounter>1000){
 		drawVel();
