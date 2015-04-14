@@ -101,12 +101,12 @@ function updateSliderPosition(){
 	if(position < 0){
 		position = 0;
 		speed = 0;
-		$('#slider').text(0);
+		$('#slider').text(-250);
 	}
 	else if(position > 500){
 		position = 500;
 		speed = 0;
-		$('#slider').text(500);  //Update the slider's text
+		$('#slider').text(250);  //Update the slider's text
 	}
 
 	drawPos(position);
