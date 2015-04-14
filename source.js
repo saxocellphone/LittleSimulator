@@ -9,10 +9,12 @@ var moving = 0;
 var speed = 0;
 var acc = 0.2;
 var sliderPosition = 0;
+var pause = false;
 init();
 
 function init(){
 	createCanvas();
+	$("#toggleTimer").hide();
 	document.addEventListener('keydown', function(event) {
 	    if(event.keyCode == 37 || event.keyCode == 40) {  //Left arrow, down arrow
 			event.preventDefault();
@@ -44,12 +46,25 @@ function startTimer(){  //Called from HTML
 	timeCounter = 0;
 	prePosYVal = 250;
 	$('#slider').text(0);
-	document.getElementById("startTimer").innerHTML="Restart";
+	document.getElementById("startTimer").innerHTML = "Restart";
 	sliderPosition = 0;
 	speed = 0;
 	moving = 0;
 	createCanvas();
-	timer = setInterval(updateSliderPosition, 20);
+	$("#toggleTimer").show();
+	timer = window.setInterval(updateSliderPosition, 20);
+}
+
+function toggleTimer(){
+	pause=!pause;  //Invert since they just clicked the button
+	if(pause){
+		window.clearInterval(timer);
+		document.getElementById("toggleTimer").innerHTML = "Resume";
+	}
+	else{
+		timer = window.setInterval(updateSliderPosition, 20);
+		document.getElementById("toggleTimer").innerHTML = "Pause";
+	}
 }
 
 function updateSliderPosition() {
@@ -58,11 +73,12 @@ function updateSliderPosition() {
 
 	//Drawing position
 	drawPos(-(parseFloat(document.getElementById('slider').innerHTML)+moving)+250);  //Invert the position so that it displays properly then add 250 because that's the center of the graph
-	timeCounter+=1;
+	timeCounter++;
 	if(timeCounter>1000){
 		drawVel();
 		drawAcc();
 		window.clearInterval(timer);
+		$("#toggleTimer").hide();
 	}
 }
 
@@ -97,7 +113,7 @@ function drawAcc(){
 	contextAcc.strokeStyle="#00ff00";
 	contextAcc.beginPath();
 	accArray[0]=250;
-	for(var i = 0; i < velArray.length + 3; i += 4){
+	for(var i = 0; i < velArray.length + 3; i+=4){
 		accArray[i] = (velArray[i+4]-velArray[i])+250;
 	}
 
