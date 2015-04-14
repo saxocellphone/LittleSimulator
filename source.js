@@ -53,7 +53,7 @@ function startTimer(){  //Called from HTML
 		timeCounter = 0;
 		prePosYVal = 250;
 		$('#slider').text(0);
-		document.getElementById("startTimer").innerHTML = "Stop";
+		document.getElementById("startTimer").innerHTML = "Restart";
 		sliderPosition = 0;
 		speed = 0;
 		moving = 0;
@@ -66,7 +66,7 @@ function startTimer(){  //Called from HTML
 		stopped = false;
 	}
 	else{
-		document.getElementById("startTimer").innerHTML = "Restart";
+		document.getElementById("startTimer").innerHTML = "Stop";
 		drawVel();
 		drawAcc();
 		window.clearInterval(timer);
