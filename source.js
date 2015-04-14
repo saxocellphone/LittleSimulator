@@ -19,12 +19,12 @@ function init(){
 	document.addEventListener('keydown', function(event) {
 	if(event.keyCode == 37 || event.keyCode == 40 || event.keyCode == 65 || event.keyCode == 83) {  //Left arrow, down arrow, A key, S key
 		event.preventDefault();
-		speed=0;
+		speed = 0;
 		speed -= acc;
 	}
 	else if(event.keyCode == 39 || event.keyCode == 38 || event.keyCode == 68 || event.keyCode == 87) {  //Right arrow, up arrow, D key, W key
 		event.preventDefault();
-		speed=0;
+		speed = 0;
 		speed += acc;
 	}
 	else if(event.keyCode == 32){  //Spacebar
@@ -34,7 +34,9 @@ function init(){
 	});
 
 	document.addEventListener('keyup', function(event){
-		speed = 0;
+		if(event.keyCode == 37 || event.keyCode == 38 || event.keyCode == 39 || event.keyCode == 40 || event.keyCode == 65 || event.keyCode == 68 || event.keyCode == 83 || event.keyCode == 87){
+			speed = 0;
+		}
 	});
 }
 
