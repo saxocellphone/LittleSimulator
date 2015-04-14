@@ -43,9 +43,6 @@ function toggleTimer(){  //Called from HTML
 	timeCounter = 0;
 	prePosYVal = 250;
 	$('#slider').text(0);
-	sliderPosition = 0;
-	speed = 0;
-	moving = 0;
 	createCanvas();
 	timer = setInterval(myTimer, 20);
 }
@@ -54,11 +51,13 @@ function myTimer() {
 	moving += speed;
 	$('#slider').text(parseInt(document.getElementById('slider').innerHTML)+Math.round(moving));  //Update the slider's text
 
+
 	if(bool){
 		sliderPosition == parseInt(document.getElementById('slider').innerHTML);
 	} else {
 		sliderPosition += moving;
 	}
+
 
 
 	//Drawing position
