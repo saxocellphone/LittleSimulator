@@ -16,7 +16,7 @@ function init(){
 	createCanvas();
 	$("#toggleTimer").hide();
 	document.addEventListener('keydown', function(event) {
-	if(event.keyCode == 37 || event.keyCode == 40 || event.keyCode == 65, event.keyCode == 83) {  //Left arrow, down arrow, A key, S key
+	if(event.keyCode == 37 || event.keyCode == 40 || event.keyCode == 65 || event.keyCode == 83) {  //Left arrow, down arrow, A key, S key
 		event.preventDefault();
 		speed=0;
 		speed -= acc;
