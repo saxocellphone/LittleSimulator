@@ -49,7 +49,7 @@ function createCanvas(){
 }
 
 function startTimer(){  //Called from HTML
-	if(stopped){
+	if(stopped || document.getElementById("startTimer").innerHTML == "Click to start"){
 		timeCounter = 0;
 		prePosYVal = 250;
 		$('#slider').text(0);
@@ -101,6 +101,7 @@ function updateSliderPosition(){
 		window.clearInterval(timer);
 		$("#toggleTimer").hide();
 		document.getElementById("startTimer").innerHTML = "Restart";
+		stopped = true;
 	}
 }
 
