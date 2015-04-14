@@ -60,7 +60,8 @@ function myTimer() {
 	moving += speed;
 	$('#slider').text(parseInt(document.getElementById('slider').innerHTML)+Math.round(moving));  //Update the slider's text
 	if(bool){
-		sliderPosition == parseInt(document.getElementById('slider').innerHTML);
+		speed = 0;
+		sliderPosition = parseInt(document.getElementById('slider').innerHTML);
 	} else {
 		sliderPosition += moving;
 	}
