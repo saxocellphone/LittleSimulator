@@ -54,6 +54,9 @@ function startTimer(){  //Called from HTML
 		prePosYVal = 250;
 		$('#slider').text(0);
 		document.getElementById("startTimer").innerHTML = "Stop";
+		posArray = [];
+		vecArray = [];
+		accArray = [];
 		sliderPosition = 0;
 		speed = 0;
 		moving = 0;
