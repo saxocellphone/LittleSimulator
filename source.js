@@ -57,6 +57,9 @@ function startTimer(){  //Called from HTML
 	moving = 0;
 	createCanvas();
 	$("#toggleTimer").show();
+	if(timer !== null){
+		window.clearInterval(timer);
+	}
 	timer = window.setInterval(updateSliderPosition, 20);
 }
 
