@@ -94,7 +94,7 @@ function drawVel(){
 
 function drawAcc(){
 	var contextAcc = canvas.getContext('2d');
-	contextAcc.strokeStyle="#ff0000";
+	contextAcc.strokeStyle="#00ff00";
 	contextAcc.beginPath();
 	accArray[0]=250;
 	for(var i = 0; i < velArray.length + 3; i += 4){
