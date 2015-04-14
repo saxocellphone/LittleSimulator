@@ -39,18 +39,19 @@ function createCanvas(){
 	context.stroke();
 }
 
-function toggleTimer(){  //Called from HTML
+function startTimer(){  //Called from HTML
 	timeCounter = 0;
 	prePosYVal = 250;
 	$('#slider').text(0);
+	document.getElementById("startTimer").innerHTML="Restart";
 	sliderPosition = 0;
 	speed = 0;
 	moving = 0;
 	createCanvas();
-	timer = setInterval(myTimer, 20);
+	timer = setInterval(updateSliderPosition, 20);
 }
 
-function myTimer() {
+function updateSliderPosition() {
 	moving += speed;
 	$('#slider').text(parseInt(document.getElementById('slider').innerHTML)+Math.round(moving));  //Update the slider's text
 
