@@ -38,6 +38,7 @@ function createCanvas(){
 	context.moveTo(0, canvas.height/2);
 	context.lineTo(canvas.width, canvas.height/2);
 	context.stroke();
+
 }
 
 function toggleTimer(){  //Called from HTML
