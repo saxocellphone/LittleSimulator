@@ -22,7 +22,7 @@ function init(){
 		speed = 0;
 		speed -= acc;
 	}
-	else if(event.keyCode == 39 || event.keyCode == 38 || event.keyCode == 68 || event.keyCode == 87) {  //Right arrow, up arrow, D key, W key
+	else if(event.keyCode == 39 || event.keyCode == 38 || event.kaceyCode == 68 || event.keyCode == 87) {  //Right arrow, up arrow, D key, W key
 		event.preventDefault();
 		speed = 0;
 		speed += acc;
@@ -101,11 +101,13 @@ function updateSliderPosition(){
 	if(position < 0){
 		position = 0;
 		speed = 0;
+		moving = 0;
 		$('#slider').text(250);
 	}
 	else if(position > 500){
 		position = 500;
 		speed = 0;
+		moving = 0;
 		$('#slider').text(-250);  //Update the slider's text
 	}
 
