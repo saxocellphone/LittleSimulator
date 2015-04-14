@@ -9,7 +9,8 @@ var moving = 0;
 var speed = 0;
 var acc = 0.2;
 var sliderPosition = 0;
-var pause = false;
+var paused = false;
+var stopped = false;
 init();
 
 function init(){
@@ -48,30 +49,42 @@ function createCanvas(){
 }
 
 function startTimer(){  //Called from HTML
-	timeCounter = 0;
-	prePosYVal = 250;
-	$('#slider').text(0);
-	document.getElementById("startTimer").innerHTML = "Restart";
-	sliderPosition = 0;
-	speed = 0;
-	moving = 0;
-	createCanvas();
-	$("#toggleTimer").show();
-	if(timer !== null){
-		window.clearInterval(timer);
+	if(stopped){
+		timeCounter = 0;
+		prePosYVal = 250;
+		$('#slider').text(0);
+		document.getElementById("startTimer").innerHTML = "Stop";
+		sliderPosition = 0;
+		speed = 0;
+		moving = 0;
+		createCanvas();
+		$("#toggleTimer").show();
+		if(timer !== null){
+			window.clearInterval(timer);
+		}
+		timer = window.setInterval(updateSliderPosition, 20);
+		stopped = false;
 	}
-	timer = window.setInterval(updateSliderPosition, 20);
+	else{
+		document.getElementById("startTimer").innerHTML = "Restart";
+		drawVel();
+		drawAcc();
+		window.clearInterval(timer);
+		$("#toggleTimer").hide();
+		stopped = true;
+	}
 }
 
 function toggleTimer(){
-	pause=!pause;  //Invert since they just clicked the button
-	if(pause){
-		window.clearInterval(timer);
-		document.getElementById("toggleTimer").innerHTML = "Resume";
-	}
-	else{
+	if(paused){
 		timer = window.setInterval(updateSliderPosition, 20);
 		document.getElementById("toggleTimer").innerHTML = "Pause";
+		paused = true;
+	}
+	else{
+		window.clearInterval(timer);
+		document.getElementById("toggleTimer").innerHTML = "Resume";
+		paused = false;
 	}
 }
 
@@ -87,6 +100,7 @@ function updateSliderPosition(){
 		drawAcc();
 		window.clearInterval(timer);
 		$("#toggleTimer").hide();
+		document.getElementById("startTimer").innerHTML = "Restart";
 	}
 }
 
