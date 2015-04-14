@@ -62,12 +62,6 @@ function myTimer() {
 	} else {
 		sliderPosition += moving;
 	}
-
-	if(bool){
-		sliderPosition == parseInt(document.getElementById('slider').innerHTML);
-	} else {
-		sliderPosition += moving;
-	}
 	//Drawing position
 	drawPos(-sliderPosition+250);  //Invert the position so that it displays properly then add 250 because that's the center of the graph
 	timeCounter+=1;
