@@ -8,6 +8,7 @@ var moving = 0;
 var speed = 0;
 var acc = 0.2;
 var sliderPosition = 0;
+var bool;
 init();
 
 function init(){
@@ -44,24 +45,31 @@ function toggleTimer(){  //Called from HTML
 	prePosYVal = 250;
 	$('#slider').text(0);
 	createCanvas();
+	if(document.getElementById('sliderCheckbox').checked){
+		bool = true;
+	} else {
+		bool = false;
+	}
 	timer = setInterval(myTimer, 20);
 }
 
 function myTimer() {
 	moving += speed;
 	$('#slider').text(parseInt(document.getElementById('slider').innerHTML)+Math.round(moving));  //Update the slider's text
-
+	if(bool){
+		speed = 0;
+		sliderPosition = parseInt(document.getElementById('slider').innerHTML);
+	} else {
+		sliderPosition += moving;
+	}
 
 	if(bool){
 		sliderPosition == parseInt(document.getElementById('slider').innerHTML);
 	} else {
 		sliderPosition += moving;
 	}
-
-
-
 	//Drawing position
-	drawPos(-(parseFloat(document.getElementById('slider').innerHTML)+moving)+250);  //Invert the position so that it displays properly then add 250 because that's the center of the graph
+	drawPos(-sliderPosition+250);  //Invert the position so that it displays properly then add 250 because that's the center of the graph
 	timeCounter+=1;
 	if(timeCounter>1000){
 		drawVel();
