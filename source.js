@@ -79,12 +79,12 @@ function toggleTimer(){
 	if(paused){
 		timer = window.setInterval(updateSliderPosition, 20);
 		document.getElementById("toggleTimer").innerHTML = "Pause";
-		paused = true;
+		paused = false;
 	}
 	else{
 		window.clearInterval(timer);
 		document.getElementById("toggleTimer").innerHTML = "Resume";
-		paused = false;
+		paused = true;
 	}
 }
 
@@ -100,7 +100,9 @@ function updateSliderPosition(){
 		drawAcc();
 		window.clearInterval(timer);
 		$("#toggleTimer").hide();
+		document.getElementById("toggleTimer").innerHTML = "Pause";
 		document.getElementById("startTimer").innerHTML = "Restart";
+		paused = false;
 		stopped = true;
 	}
 }
